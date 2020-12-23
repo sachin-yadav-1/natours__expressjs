@@ -17,7 +17,12 @@ app.use('/api/users', userRouter);
 
 // Unexpected Route
 app.all('*', (req, res, next) => {
-  next(new AppError('This route is not defined on this server', 404));
+  next(
+    new AppError(
+      `The route ${req.originalUrl} is not defined on this server`,
+      404
+    )
+  );
 });
 
 // Global Error Handler
