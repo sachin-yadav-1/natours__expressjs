@@ -13,7 +13,7 @@ router.post('/resetPassword/:resetToken', authController.resetPassword);
 
 // Login Required
 router.use(authController.protected);
-router.route('/me').get(userController.getMe);
+router.route('/me').get(userController.getMe, userController.getOneUser);
 router.route('/updateMyPassword').post(authController.updateMyPassword);
 
 // Admin Only

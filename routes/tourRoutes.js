@@ -2,19 +2,18 @@ const express = require('express');
 const tourController = require('../controllers/tourController');
 const authController = require('../controllers/authController');
 
-// Create a Router
+// Router
 const router = express.Router();
 
-// All Routes
-router
-  .route('/')
-  .get(tourController.getAllTours)
-  .post(tourController.createNewTour);
+// No Login Required
+router.route('/').get(tourController.getAllTours);
+router.route('/:id').get(tourController.getOneTour);
 
-// Specific Routes
+// Login Required
+router.use(authController.protected, authController.restrictTo('admin', 'dba'));
+router.route('/').post(tourController.createNewTour);
 router
   .route('/:id')
-  .get(tourController.getOneTour)
   .patch(tourController.updateOneTour)
   .delete(tourController.deleteOneTour);
 
