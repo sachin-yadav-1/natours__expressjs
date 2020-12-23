@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Tour Schema
+// TOUR SCHEMA
 const tourSchema = new mongoose.Schema(
   {
     name: {
@@ -47,8 +47,8 @@ const tourSchema = new mongoose.Schema(
   }
 );
 
-// Tour Model
+// TOUR MODEL
 const Tour = mongoose.model('Tour', tourSchema);
 
-// Export
+// EXPORTS
 module.exports = Tour;

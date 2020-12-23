@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const app = require('./app');
 
-// Database Setup
+// DATABASE SETUP
 const DB = process.env.DB_LOCAL;
 mongoose
   .connect(DB, {
@@ -16,6 +16,6 @@ mongoose
     process.exit(1);
   });
 
-// Server Setup
+// SERVER SETUP
 const port = process.env.PORT;
 app.listen(port, () => console.log(`Listening to server at port: ${port}`));

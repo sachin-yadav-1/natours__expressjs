@@ -2,14 +2,14 @@ const express = require('express');
 const tourController = require('../controllers/tourController');
 const authController = require('../controllers/authController');
 
-// Router
+// ROUTER
 const router = express.Router();
 
-// No Login Required
+// NO LOGIN REQUIRED
 router.route('/').get(tourController.getAllTours);
 router.route('/:id').get(tourController.getOneTour);
 
-// Login Required
+// LOGIN REQUIRED
 router.use(authController.protected, authController.restrictTo('admin', 'dba'));
 router.route('/').post(tourController.createNewTour);
 router
@@ -17,5 +17,5 @@ router
   .patch(tourController.updateOneTour)
   .delete(tourController.deleteOneTour);
 
-// Exports
+// EXPORTS
 module.exports = router;

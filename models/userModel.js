@@ -66,11 +66,16 @@ userSchema.pre('save', async function (next) {
 });
 
 // CHECK PASSWORD
+// This middleware compares the input password with the encrypted password in DB using 'compare' method from bcrypt
+// @param {imputPassword}: User input password received in request body
+// @param {dbPassword}: Encrypted password stored in DB
 userSchema.methods.checkPassword = async (inputPassword, dbPassword) => {
   return await bcrypt.compare(inputPassword, dbPassword);
 };
 
 // CHECK IF PASSWORD UPDATED
+// This middleware checks if the user user updated password logging in i.e. after JWT was issued
+// @param {jwtTimestamp}: The 'iat' or issued at value we get after verifying the jwt token
 userSchema.methods.passwordChangedAfterJWT = (jwtTimestamp) => {
   if (this.passwordChangedAt) {
     return this.passwordChangedAt > jwtTimestamp;

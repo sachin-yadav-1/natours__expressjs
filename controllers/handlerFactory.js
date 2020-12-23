@@ -3,6 +3,7 @@ const AppError = require('../utils/appError');
 const APIFeatures = require('../utils/apiFeatures');
 
 // CREATE ONE DOCUMENT
+// @param {Model}: Model name for which the document will be created
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const newDoc = await Model.create(req.body);
@@ -16,6 +17,7 @@ exports.createOne = (Model) =>
   });
 
 // GET ALL DOCUMENTS
+// @param {Model}: Model name for which the document will be created
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
     const features = new APIFeatures(Model.find(), req.query)
@@ -36,6 +38,7 @@ exports.getAll = (Model) =>
   });
 
 // GET ONE DOCUMENT
+// @param {Model}: Model name for which the document will be created
 exports.getOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findById(req.params.id);
@@ -50,6 +53,7 @@ exports.getOne = (Model) =>
   });
 
 // UPDATE ONE DOCUMENT
+// @param {Model}: Model name for which the document will be created
 exports.updateOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body);
@@ -64,6 +68,7 @@ exports.updateOne = (Model) =>
   });
 
 // DELETE ONE DOCUMENT
+// @param {Model}: Model name for which the document will be created
 exports.deleteOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndDelete(req.params.id);

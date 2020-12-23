@@ -6,16 +6,16 @@ const globalErrorHandler = require('./controllers/errorController.js');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 
-// App Setup
+// APP SETUP
 const app = express();
 app.use(express.json());
 dotenv.config();
 
-// Mounting Routes
+// MOUNTING ROUTES
 app.use('/api/tours', tourRouter);
 app.use('/api/users', userRouter);
 
-// Unexpected Route
+// UHANDLED ROUTES
 app.all('*', (req, res, next) => {
   next(
     new AppError(
@@ -25,8 +25,8 @@ app.all('*', (req, res, next) => {
   );
 });
 
-// Global Error Handler
+// GLOBAL ERROR HANDLER
 app.use(globalErrorHandler);
 
-// Exports
+// EXPORTS
 module.exports = app;

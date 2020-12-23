@@ -1,4 +1,9 @@
-// API Features
+// API FEATURES
+// This class includes all the methods to implement all the basic features of the our API
+// In every step, it buids the query
+// Complete class is returned at the end of every method, so that chaining can be done
+// @param {query}: Initial query ( for eg: Tour.find() )
+// @param {queryString}: Query Object from request body (req.query)
 class APIFeatures {
   constructor(query, queryString) {
     this.query = query;
