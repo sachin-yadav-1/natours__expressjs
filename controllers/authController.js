@@ -6,7 +6,6 @@ const AppError = require('../utils/appError');
 const jwt = require('jsonwebtoken');
 const signAndSendJWT = require('../utils/signAndSendJWT');
 const sendEmail = require('../utils/email');
-const { RSA_NO_PADDING } = require('constants');
 
 // SIGNUP
 // This middleware is used for creating new users
