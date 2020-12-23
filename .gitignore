@@ -1,0 +1,7 @@
+# Private 
+node_modules
+.env
+
+# Misc
+dev-data
+.prettierrc
