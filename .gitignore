@@ -5,3 +5,4 @@ node_modules
 # Misc
 dev-data
 .prettierrc
+.DS_Store
