@@ -20,7 +20,10 @@ exports.createOne = (Model) =>
 // @param {Model}: Model name for which the document will be created
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
-    const features = new APIFeatures(Model.find(), req.query)
+    let filter = {};
+    if (req.param.tourId) filter = { tour: req.params.tourId };
+
+    const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
       .sorting()
       .limitFields()

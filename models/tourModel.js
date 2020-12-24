@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 // TOUR SCHEMA
 const tourSchema = new mongoose.Schema(
@@ -135,6 +136,10 @@ const tourSchema = new mongoose.Schema(
   }
 );
 
+// CREATE INDEXES
+tourSchema.index({ price: 1, ratings: -1 });
+tourSchema.index({ slug: 1 });
+
 // POPULATE GUIDES
 tourSchema.pre(/^find/, function (next) {
   this.populate({
@@ -158,6 +163,12 @@ tourSchema.virtual('reviews', {
   ref: 'Review',
   foreignField: 'tour',
   localField: '_id',
+});
+
+// CREATE SLUG BEFORE SAVE
+tourSchema.pre('save', function (next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
 });
 
 // TOUR MODEL
