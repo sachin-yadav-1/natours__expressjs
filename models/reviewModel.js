@@ -33,6 +33,10 @@ const reviewSchema = new mongoose.Schema(
   }
 );
 
+// CREATE INDEX TO PREVENT DUPLICATE REVIEWS
+// This says that each combination of tour and user must be unique
+reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
+
 // POPULATE USERS
 reviewSchema.pre(/^find/, function (next) {
   this.populate({
