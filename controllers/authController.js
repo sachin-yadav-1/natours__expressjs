@@ -20,7 +20,8 @@ exports.signup = catchAsync(async (req, res, next) => {
     passwordConfirm: req.body.passwordConfirm,
   });
 
-  signAndSendJWT(newUser._id, res, 201);
+  newUser.password = undefined;
+  signAndSendJWT(newUser._id, res, 201, newUser);
 });
 
 // LOGIN
