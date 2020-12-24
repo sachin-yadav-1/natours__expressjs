@@ -39,9 +39,12 @@ exports.getAll = (Model) =>
 
 // GET ONE DOCUMENT
 // @param {Model}: Model name for which the document will be created
-exports.getOne = (Model) =>
+exports.getOne = (Model, popOtions) =>
   catchAsync(async (req, res, next) => {
-    const doc = await Model.findById(req.params.id);
+    let query = Model.findById(req.params.id);
+    if (popOtions) query = query.populate(popOtions);
+
+    const doc = await query;
     if (!doc) return next(new AppError('No document found for this id!', 400));
 
     res.status(200).json({

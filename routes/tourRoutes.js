@@ -1,9 +1,13 @@
 const express = require('express');
 const tourController = require('../controllers/tourController');
 const authController = require('../controllers/authController');
+const reviewRouter = require('./reviewRoutes');
 
 // ROUTER
 const router = express.Router();
+
+// REVIEW NESTED ROUTE
+router.use('/:tourId/reviews', reviewRouter);
 
 // NO LOGIN REQUIRED
 router.route('/').get(tourController.getAllTours);
