@@ -59,10 +59,17 @@ reviewSchema.statics.calcAverageRating = async function (tourId) {
     },
   ]);
 
-  await Tour.findByIdAndUpdate(tourId, {
-    ratingsAverage: stats[0].avgRating,
-    ratingsQuantity: stats[0].nRating,
-  });
+  if (stats.length > 0) {
+    await Tour.findByIdAndUpdate(tourId, {
+      ratingsAverage: stats[0].avgRating,
+      ratingsQuantity: stats[0].nRating,
+    });
+  } else {
+    await Tour.findByIdAndUpdate(tourId, {
+      ratingsAverage: 4.5,
+      ratingsQuantity: 0,
+    });
+  }
 };
 
 // CALL AVERAGE RATING WHILE CREATING NEW REVIEW
@@ -71,6 +78,16 @@ reviewSchema.post('save', function () {
 });
 
 // CALL AVERAGE RATING WHILE UPDATING OR DELETING REVIEW
+// 1) We need to access the current review to extract the tourID
+// 2) Calc statics and save in DB
+reviewSchema.pre(/^findOneAnd/, async function (next) {
+  this.r = await this.findOne();
+  next();
+});
+
+reviewSchema.post(/^findOneAnd/, async function (next) {
+  await this.r.constructor.calcAverageRating(this.r.tour);
+});
 
 // REVIEW MODEL
 const Review = mongoose.model('Review', reviewSchema);
