@@ -15,6 +15,9 @@ router.post('/resetPassword/:resetToken', authController.resetPassword);
 router.use(authController.protected);
 router.route('/me').get(userController.getMe, userController.getOneUser);
 router.route('/updateMyPassword').post(authController.updateMyPassword);
+router
+  .route('/deleteMe')
+  .delete(authController.protected, userController.deleteMe);
 
 // ADMIN ONLY ROUTES
 router.use(authController.restrictTo('admin'));

@@ -43,6 +43,12 @@ const userSchema = new mongoose.Schema(
       enum: ['admin', 'dba', 'user'],
     },
 
+    isActive: {
+      type: Boolean,
+      default: true,
+      select: false,
+    },
+
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetTokenExpires: Date,
@@ -102,6 +108,12 @@ userSchema.methods.createPasswordResetToken = function () {
 
   return resetToken;
 };
+
+// DO NOT SHOW INACTIVE USERS
+userSchema.pre(/^find/, function (next) {
+  this.find({ isActive: { $ne: false } });
+  next();
+});
 
 // USER MODEL
 const User = mongoose.model('User', userSchema);

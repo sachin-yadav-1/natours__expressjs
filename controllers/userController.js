@@ -9,6 +9,19 @@ exports.getMe = catchAsync(async (req, res, next) => {
   next();
 });
 
+// DELETE ME
+exports.deleteMe = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+
+  user.isActive = false;
+  await user.save({ validateBeforeSave: false });
+
+  res.status(204).json({
+    status: 'success',
+    message: 'Your account is deactivated. Your can recover it within 30 days',
+  });
+});
+
 // ROUTE HANDLERS
 exports.getAllUsers = factory.getAll(User);
 exports.getOneUser = factory.getOne(User);
