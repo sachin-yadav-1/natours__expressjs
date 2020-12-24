@@ -4,7 +4,8 @@
   "description": "API for a travel and tourism website called 'Plan My Trip'",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "run:prod": "NODE_ENV=production nodemon server.js"
   },
   "author": "sachin-yadav",
   "license": "ISC",
