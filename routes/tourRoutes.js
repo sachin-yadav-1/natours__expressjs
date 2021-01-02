@@ -18,7 +18,11 @@ router.use(authController.protected, authController.restrictTo('admin', 'dba'));
 router.route('/').post(tourController.createNewTour);
 router
   .route('/:id')
-  .patch(tourController.updateOneTour)
+  .patch(
+    tourController.uploadTourImages,
+    tourController.resizeTourImages,
+    tourController.updateOneTour
+  )
   .delete(tourController.deleteOneTour);
 
 // EXPORTS

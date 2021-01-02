@@ -32,18 +32,7 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
-// FILE UPLOADS
-// const multerStorage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, 'public/img2');
-//   },
-
-//   filename: (req, file, cb) => {
-//     const ext = file.mimetype.split('/')[1];
-//     cb(null, `user-${req.user._id}-${Date.now()}.${ext}`);
-//   },
-// });
-
+// IMAGE UPLOADS
 const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
@@ -68,7 +57,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
 
   req.file.filename = `user-${req.user._id}-${Date.now()}.jpeg`;
 
-  sharp(req.file.buffer)
+  await sharp(req.file.buffer)
     .resize(500, 500)
     .toFormat('jpeg')
     .toFile(`public/img2/${req.file.filename}`);
@@ -78,8 +67,6 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
 
 // ROUTE HANDLERS
 exports.updateMe = catchAsync(async (req, res, next) => {
-  console.log(req.file);
-
   // 1) Create error if user POSTs password data
   if (req.body.password || req.body.passwordConfirm) {
     return next(
