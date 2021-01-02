@@ -49,6 +49,7 @@ const userSchema = new mongoose.Schema(
       select: false,
     },
 
+    photo: String,
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetTokenExpires: Date,
